@@ -49,7 +49,7 @@ let interval = null;
 
 function addFruit() {
     const index = Math.floor(Math.random() * 5);
-    const fruit = FRUITS_BASE[index];
+    const fruit = FRUITS_HLW[index];
 
     const body = Bodies.circle(300, 50, fruit.radius, {
         index: index,
@@ -121,13 +121,13 @@ Events.on(engine, "collisionStart", (event) => {
         if (collision.bodyA.index === collision.bodyB.index) {
             const index = collision.bodyA.index;
 
-            if (index === FRUITS_BASE.length -1){
+            if (index === FRUITS_HLW.length -1){
                 return;
             }
 
             World.remove(world, [collision.bodyA, collision.bodyB]);
 
-            const newFruit = FRUITS_BASE[index + 1];
+            const newFruit = FRUITS_HLW[index + 1];
 
             const newBody = Bodies.circle(
                 collision.collision.supports[0].x,
