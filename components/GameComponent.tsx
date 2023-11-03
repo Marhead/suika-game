@@ -75,7 +75,11 @@ const GameComponent: React.FC = () => {
                 index: index,
                 isSleeping: true,
                 render: {
-                    sprite: { texture: `${fruit.name}.png`}
+                    sprite: {
+                        texture: `${fruit.name}.png`,
+                        xScale: 1,
+                        yScale: 1,
+                    }
                 },
                 restitution: 0.15,
             })
