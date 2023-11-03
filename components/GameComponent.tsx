@@ -72,7 +72,7 @@ const GameComponent: React.FC = () => {
             const fruit = FRUITS_HLW[index];
 
             const body = Bodies.circle(300, 50, fruit.radius, {
-                index: index,
+                index: index as any,
                 isSleeping: true,
                 render: {
                     sprite: {
