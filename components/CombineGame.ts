@@ -40,7 +40,7 @@ const world = engine.world;
 // World.add(world, [leftWall, rightWall, ground, topLine])
 
 Render.run(render);
-Runner.run(engine);
+Engine.run(engine);
 
 // let currentBody = null;
 // let currentFruit = null;

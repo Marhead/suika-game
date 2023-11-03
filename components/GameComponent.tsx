@@ -1,29 +1,31 @@
+"use client"
 import React, {useEffect, useRef} from 'react';
 import * as Matter from 'matter-js';
+import {FRUITS_HLW} from "@/components/Animals";
+import {Bodies, Body, Events, World} from "matter-js";
 
 const GameComponent: React.FC = () => {
+    const boxRef = useRef<HTMLElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-
     useEffect(() => {
-        // Initialize Matter.js and your game logic here
         const engine = Matter.Engine.create();
 
         // Define your game logic here using Matter.js
 
-        // Render the game on the canvas
-        const canvas = canvasRef.current;
+        const canvas = canvasRef.current!;
         const render = Matter.Render.create({
-            // element: ctx?.canvas,
-            element: canvas,
+            element: boxRef.current!,
             engine: engine,
+            canvas: canvas,
             options: {
-                wireframes: true,
+                wireframes: false,
                 background: "#f5efa2",
                 width: 620,
                 height: 850,
             }
-        });
+        });        // Render the game on the canvas
+
         const world = engine.world;
 
 
@@ -43,7 +45,7 @@ const GameComponent: React.FC = () => {
         });
 
         const topLine = Matter.Bodies.rectangle(310, 150, 620, 2, {
-            // name: "topLine",
+            label: "topLine",
             isStatic: true,
             isSensor: true,
             render: { fillStyle: "#E6B143" }
@@ -55,12 +57,125 @@ const GameComponent: React.FC = () => {
         Matter.Render.run(render);
         Matter.Runner.run(engine);
 
+        let currentBody = null;
+        let currentFruit = null;
+        let disableAction = false;
+        let interval = null;
+
+        function addFruit() {
+            const index = Math.floor(Math.random() * 5);
+            const fruit = FRUITS_HLW[index];
+
+            const body = Bodies.circle(300, 50, fruit.radius, {
+                index: index,
+                isSleeping: true,
+                render: {
+                    sprite: { texture: `${fruit.name}.png`}
+                },
+                restitution: 0.15,
+            })
+
+            currentBody = body;
+            currentFruit = fruit;
+
+            World.add(world, body);
+        }
+
+        window.onkeydown = (event) => {
+            if (disableAction) {
+                return;
+            }
+            switch (event.code) {
+                case "KeyA":
+                    if (interval)
+                        return;
+                    interval = setInterval(() => {
+                        if (currentBody.position.x - currentFruit.radius > 30)
+                            Body.setPosition(currentBody, {
+                                x: currentBody.position.x - 1,
+                                y: currentBody.position.y,
+                            });
+                    }, 1)
+
+                    break;
+                case "KeyD":
+                    if (interval)
+                        return;
+                    interval = setInterval(() => {
+                        if (currentBody.position.x + currentFruit.radius < 590)
+                            Body.setPosition(currentBody, {
+                                x: currentBody.position.x + 1,
+                                y: currentBody.position.y,
+                            });
+                    }, 1)
+
+                    break;
+                case "KeyS":
+                    currentBody.isSleeping = false;
+                    disableAction = true;
+
+                    setTimeout(() => {
+                        addFruit();
+                        disableAction = false;
+                    }, 1000);
+                    break
+            }
+        }
+
+        window.onkeyup = (event) => {
+            switch (event.code) {
+                case "KeyA":
+                case "KeyD":
+                    clearInterval(interval);
+                    interval = null;
+            }
+        }
+
+        Events.on(engine, "collisionStart", (event) => {
+            event.pairs.forEach((collision) => {
+                if (collision.bodyA.index === collision.bodyB.index) {
+                    const index = collision.bodyA.index;
+
+                    if (index === FRUITS_HLW.length -1){
+                        return;
+                    }
+
+                    World.remove(world, [collision.bodyA, collision.bodyB]);
+
+                    const newFruit = FRUITS_HLW[index + 1];
+
+                    const newBody = Bodies.circle(
+                        collision.collision.supports[0].x,
+                        collision.collision.supports[0].y,
+                        newFruit.radius,
+                        {
+                            render: {
+                                sprite: { texture: `${newFruit.name}.png` }
+                            },
+                            index: index + 1,
+                        }
+                    );
+
+                    World.add(world, newBody);
+                }
+
+                if (!disableAction && ( collision.bodyA.label === "topLine" || collision.bodyB.label === "topLine"))
+                    alert("Game Over");
+            });
+        })
+
+        addFruit();
+
         return () => {
             // Cleanup code if needed
         };
     }, []);
 
-    return <canvas ref={canvasRef} width={620} height={850}/>;
+    return (
+        <div ref={boxRef}>
+            <canvas ref={canvasRef} className="bg-gray-700" width={620} height={850}/>
+        </div>
+    );
 };
 
 export default GameComponent;
