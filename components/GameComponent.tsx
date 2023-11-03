@@ -155,7 +155,11 @@ const GameComponent: React.FC = () => {
                         newFruit.radius,
                         {
                             render: {
-                                sprite: { texture: `${newFruit.name}.png` }
+                                sprite: {
+                                    texture: `${newFruit.name}.png`,
+                                    xScale: 1,
+                                    yScale: 1,
+                                }
                             },
                             index: index + 1,
                         }
