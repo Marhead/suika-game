@@ -151,7 +151,7 @@ const GameComponent: React.FC = () => {
 
                     World.remove(world, [collision.bodyA, collision.bodyB]);
 
-                    const newFruit = FRUITS_HLW[index + 1];
+                    const newFruit = FRUITS_HLW[index! + 1];
 
                     const newBody = Bodies.circle(
                         collision.collision.supports[0].x,
@@ -165,7 +165,7 @@ const GameComponent: React.FC = () => {
                                     yScale: 1,
                                 }
                             },
-                            index: index + 1,
+                            index: index! + 1,
                         }
                     );
 
