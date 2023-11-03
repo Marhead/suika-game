@@ -4,6 +4,11 @@ import * as Matter from 'matter-js';
 import {FRUITS_HLW} from "@/components/Animals";
 import {Bodies, Body, Events, World} from "matter-js";
 
+interface Fruit {
+    name: string;
+    radius: number;
+}
+
 const GameComponent: React.FC = () => {
     const boxRef = useRef<HTMLElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -57,10 +62,10 @@ const GameComponent: React.FC = () => {
         Matter.Render.run(render);
         Matter.Runner.run(engine);
 
-        let currentBody = null;
-        let currentFruit = null;
+        let currentBody: Body | null = null;
+        let currentFruit: Fruit | null = null;
         let disableAction = false;
-        let interval = null;
+        let interval: NodeJS.Timeout | null = null;
 
         function addFruit() {
             const index = Math.floor(Math.random() * 5);
@@ -90,10 +95,10 @@ const GameComponent: React.FC = () => {
                     if (interval)
                         return;
                     interval = setInterval(() => {
-                        if (currentBody.position.x - currentFruit.radius > 30)
-                            Body.setPosition(currentBody, {
-                                x: currentBody.position.x - 1,
-                                y: currentBody.position.y,
+                        if (currentBody!.position.x - currentFruit!.radius > 30)
+                            Body.setPosition(currentBody!, {
+                                x: currentBody!.position.x - 1,
+                                y: currentBody!.position.y,
                             });
                     }, 1)
 
@@ -102,16 +107,16 @@ const GameComponent: React.FC = () => {
                     if (interval)
                         return;
                     interval = setInterval(() => {
-                        if (currentBody.position.x + currentFruit.radius < 590)
-                            Body.setPosition(currentBody, {
-                                x: currentBody.position.x + 1,
-                                y: currentBody.position.y,
+                        if (currentBody!.position.x + currentFruit!.radius < 590)
+                            Body.setPosition(currentBody!, {
+                                x: currentBody!.position.x + 1,
+                                y: currentBody!.position.y,
                             });
                     }, 1)
 
                     break;
                 case "KeyS":
-                    currentBody.isSleeping = false;
+                    currentBody!.isSleeping = false;
                     disableAction = true;
 
                     setTimeout(() => {
@@ -126,7 +131,7 @@ const GameComponent: React.FC = () => {
             switch (event.code) {
                 case "KeyA":
                 case "KeyD":
-                    clearInterval(interval);
+                    clearInterval(interval!);
                     interval = null;
             }
         }
