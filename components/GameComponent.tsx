@@ -181,7 +181,7 @@ const GameComponent: React.FC = () => {
     }, []);
 
     return (
-        <div ref={boxRef}>
+        <div>
             <canvas ref={canvasRef} className="bg-gray-700" width={620} height={850}/>
         </div>
     );
