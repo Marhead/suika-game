@@ -15,9 +15,6 @@ const GameComponent: React.FC = () => {
 
     useEffect(() => {
         const engine = Matter.Engine.create();
-
-        // Define your game logic here using Matter.js
-
         const canvas = canvasRef.current!;
         const render = Matter.Render.create({
             element: boxRef.current!,
@@ -29,10 +26,9 @@ const GameComponent: React.FC = () => {
                 width: 620,
                 height: 850,
             }
-        });        // Render the game on the canvas
+        });
 
         const world = engine.world;
-
 
         const leftWall = Matter.Bodies.rectangle(15, 395, 30, 790, {
             isStatic: true,
