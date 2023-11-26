@@ -92,4 +92,55 @@ const FRUITS_HLW = [
     },
 ];
 
-export { FRUITS_BASE, FRUITS_HLW };
+const ANIMAL_3D = [
+    {
+        name: "animal_3d/01_Mouse",
+        radius: 30 / 2,
+    },
+    {
+        name: "animal_3d/02_Snake",
+        radius: 44 / 2,
+    },
+    {
+        name: "animal_3d/03_Chicken",
+        radius: 70 / 2,
+    },
+    {
+        name: "animal_3d/04_Rabbit",
+        radius: 99 / 2,
+    },
+    {
+        name: "animal_3d/05_Dog",
+        radius: 117 / 2,
+    },
+    {
+        name: "animal_3d/06_Monkey",
+        radius: 130 / 2,
+    },
+    {
+        name: "animal_3d/07_Pig",
+        radius: 162 / 2,
+    },
+    {
+        name: "animal_3d/08_Sheep",
+        radius: 170 / 2,
+    },
+    {
+        name: "animal_3d/09_Cow",
+        radius: 203 / 2,
+    },
+    {
+        name: "animal_3d/10_Horse",
+        radius: 210 / 2,
+    },
+    {
+        name: "animal_3d/11_Tiger",
+        radius: 269 / 2,
+    },
+    {
+        name: "animal_3d/12_Dragon",
+        radius: 285 / 2,
+    },
+];
+
+export { FRUITS_BASE, FRUITS_HLW, ANIMAL_3D };
