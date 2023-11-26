@@ -3,6 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import * as Matter from 'matter-js';
 import {FRUITS_HLW, ANIMAL_3D} from "@/components/Animals";
 import {Bodies, Body, Events, World} from "matter-js";
+import "@/matter-extended.d";
 
 interface Fruit {
     name: string;
@@ -25,7 +26,7 @@ const GameComponent: React.FC = () => {
             canvas: canvas,
             options: {
                 wireframes: false,
-                background: "#f5efa2",
+                background: "#052e16",
                 width: 620,
                 height: 850,
             }
