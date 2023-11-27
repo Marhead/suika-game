@@ -6,10 +6,7 @@ const ScoreBoard: React.FC = () => {
 
     return (
         <div>
-            This is score box
-            <h2>
-                Score: {score}
-            </h2>
+            Your Score: "{score}"
         </div>
     );
 }

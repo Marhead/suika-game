@@ -4,7 +4,6 @@ import * as Matter from 'matter-js';
 import {FRUITS_HLW, ANIMAL_3D} from "@/components/Animals";
 import {Bodies, Body, Events, World} from "matter-js";
 import "@/matter-extended.d";
-import Score from "@/components/Score";
 import {useDispatch, useSelector} from "react-redux";
 import {setScore} from "@/redux/scoreActions";
 
@@ -75,7 +74,6 @@ const GameComponent: React.FC = () => {
         Matter.Render.run(render);
         Matter.Runner.run(engine);
 
-        let Score: Score = {score: 0};
         let currentBody: Body | null = null;
         let currentFruit: Fruit | null = null;
         let disableAction = false;
@@ -197,7 +195,7 @@ const GameComponent: React.FC = () => {
                 
                 // 게임 종료 판별
                 if (!disableAction && ( collision.bodyA.label === "topLine" || collision.bodyB.label === "topLine"))
-                    alert("Game Over");
+                    location.reload();
             });
         })
 
