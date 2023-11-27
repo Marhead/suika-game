@@ -7,7 +7,7 @@ import store from "@/redux/store";
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen items-center justify-between p-24 bg-slate-600">
+        <main className="flex min-h-screen items-center justify-between p-24 bg-gradient-to-t from-emerald-950 to-green-600">
             <Provider store={store}>
                 <KeyAlarm/>
                 <GameComponent/>
