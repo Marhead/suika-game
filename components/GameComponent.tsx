@@ -1,9 +1,12 @@
 "use client"
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import * as Matter from 'matter-js';
 import {FRUITS_HLW, ANIMAL_3D} from "@/components/Animals";
 import {Bodies, Body, Events, World} from "matter-js";
 import "@/matter-extended.d";
+import Score from "@/components/Score";
+import {useDispatch, useSelector} from "react-redux";
+import {setScore} from "@/redux/scoreActions";
 
 interface Fruit {
     name: string;
@@ -11,6 +14,15 @@ interface Fruit {
 }
 
 const GameComponent: React.FC = () => {
+    const dispatch = useDispatch();
+    let currentScore = 0;
+    const score = useSelector((state: any) => state.score);
+
+    const handleUpdateScore = (index: number) => {
+        currentScore = index * 2 + currentScore;
+        dispatch(setScore(currentScore));
+    };
+
     const boxRef = useRef<HTMLElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -63,6 +75,7 @@ const GameComponent: React.FC = () => {
         Matter.Render.run(render);
         Matter.Runner.run(engine);
 
+        let Score: Score = {score: 0};
         let currentBody: Body | null = null;
         let currentFruit: Fruit | null = null;
         let disableAction = false;
@@ -82,7 +95,8 @@ const GameComponent: React.FC = () => {
                         yScale: 1,
                     }
                 },
-                restitution: 0.15,
+                restitution: 0.25,
+                friction: 0.4
             })
 
             currentBody = body;
@@ -91,6 +105,7 @@ const GameComponent: React.FC = () => {
             World.add(world, body);
         }
 
+        // "S" 버튼을 눌러 과일을 내리기 시작할 때
         window.onkeydown = (event) => {
             if (disableAction) {
                 return;
@@ -141,8 +156,11 @@ const GameComponent: React.FC = () => {
             }
         }
 
+        // 충돌 시작 (합치기 or 안합치기 판단)
         Events.on(engine, "collisionStart", (event) => {
             event.pairs.forEach((collision) => {
+                
+                // 충돌 합체 조건문
                 if (collision.bodyA.index === collision.bodyB.index) {
                     const index = collision.bodyA.index;
 
@@ -169,10 +187,15 @@ const GameComponent: React.FC = () => {
                             index: index! + 1,
                         }
                     );
-
+                    
+                    // 점수 추가
+                    handleUpdateScore(index+1);
+                    
+                    // 새 동물 추가
                     World.add(world, newBody);
                 }
-
+                
+                // 게임 종료 판별
                 if (!disableAction && ( collision.bodyA.label === "topLine" || collision.bodyB.label === "topLine"))
                     alert("Game Over");
             });
