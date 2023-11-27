@@ -1,12 +1,7 @@
 import React, {useState} from "react";
-import Score from "@/components/Score";
 import {useSelector} from "react-redux";
 
-interface ScoreBoardProps {
-    updateScore: (inputScore: Score) => void;
-}
-
-const ScoreBoard: React.FC<ScoreBoardProps> = ({updateScore}) => {
+const ScoreBoard: React.FC = () => {
     const score = useSelector((state:any) => state.score);
 
     return (
