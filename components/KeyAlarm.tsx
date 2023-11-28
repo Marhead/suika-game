@@ -4,7 +4,7 @@ import Image from "next/image";
 const KeyAlarm: React.FC = () => {
     return (
         <div>
-            <div>
+            <div className="flex">
                 <Image
                     src="/s_key.png"
                     width={32}
@@ -12,7 +12,7 @@ const KeyAlarm: React.FC = () => {
                     alt="S_key"
                 /> key: Down
             </div>
-            <div>
+            <div className="flex">
                 <Image
                     src="/a_key.png"
                     width={32}
@@ -20,7 +20,7 @@ const KeyAlarm: React.FC = () => {
                     alt="A_key"
                 /> key: Left
             </div>
-            <div>
+            <div className="flex">
                 <Image
                     src="/d_key.png"
                     width={32}
