@@ -13,9 +13,9 @@ const DigitDisplay: React.FC<DigitDisplayProps> = ({ score }) => {
         return digitArray.map((digit, index) => (
             <img
                 key={index}
-                src={`./digits/${digit}.svg`} // Adjust the path based on your project structure
+                src={`./digits/${digit}.svg`}
                 alt={`Digit ${digit}`}
-                style={{ width: '50px', height: '50px' }} // Adjust the size as needed
+                style={{ width: '50px', height: '50px' }}
             />
         ));
     };
