@@ -37,7 +37,7 @@ const GameComponent: React.FC = () => {
             canvas: canvas,
             options: {
                 wireframes: false,
-                background: "#052e16",
+                background: "#f7ef84",
                 width: 620,
                 height: 850,
             }
@@ -46,26 +46,26 @@ const GameComponent: React.FC = () => {
         const world = engine.world;
 
 
-        const leftWall = Matter.Bodies.rectangle(15, 395, 30, 790, {
+        const leftWall = Matter.Bodies.rectangle(15, 395, 30, 850, {
             isStatic: true,
-            render: { fillStyle: "#E6B143" }
+            render: { fillStyle: "#e4e642" }
         });
 
-        const rightWall = Matter.Bodies.rectangle(605, 395, 30, 790, {
+        const rightWall = Matter.Bodies.rectangle(605, 395, 30, 850, {
             isStatic: true,
-            render: { fillStyle: "#E6B143" }
+            render: { fillStyle: "#e4e642" }
         });
 
-        const ground = Matter.Bodies.rectangle(310, 820, 620, 60, {
+        const ground = Matter.Bodies.rectangle(310, 840, 620, 40, {
             isStatic: true,
-            render: { fillStyle: "#E6B143" }
+            render: { fillStyle: "#e4e642" }
         });
 
         const topLine = Matter.Bodies.rectangle(310, 150, 620, 2, {
             label: "topLine",
             isStatic: true,
             isSensor: true,
-            render: { fillStyle: "#E6B143" }
+            render: { fillStyle: "#e08610" }
         })
 
         Matter.World.add(world, [leftWall, rightWall, ground, topLine])

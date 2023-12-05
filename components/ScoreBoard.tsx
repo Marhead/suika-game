@@ -6,7 +6,7 @@ const ScoreBoard: React.FC = () => {
     const score = useSelector((state:any) => state.score);
 
     return (
-        <div className="bg-yellow-400 text-emerald-500">
+        <div className="m-4 bg-yellow-400 text-emerald-500">
             Your Score:
             <DigitDisplay score={score}/>
         </div>
