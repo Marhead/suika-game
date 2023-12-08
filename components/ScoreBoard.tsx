@@ -6,8 +6,12 @@ const ScoreBoard: React.FC = () => {
     const score = useSelector((state:any) => state.score);
 
     return (
-        <div className="m-4 bg-yellow-400 text-emerald-500">
-            Your Score:
+        <div className="m-4 text-emerald-500">
+            <img
+                src={`./YourScore.png`}
+                width="300"
+            />
+            <div className="text-transparent">[</div>
             <DigitDisplay score={score}/>
         </div>
     );
