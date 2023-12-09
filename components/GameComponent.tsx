@@ -109,6 +109,7 @@ const GameComponent: React.FC = () => {
                 return;
             }
             switch (event.code) {
+                case "ArrowLeft":
                 case "KeyA":
                     if (interval)
                         return;
@@ -121,6 +122,7 @@ const GameComponent: React.FC = () => {
                     }, 1)
 
                     break;
+                case "ArrowRight":
                 case "KeyD":
                     if (interval)
                         return;
@@ -133,6 +135,7 @@ const GameComponent: React.FC = () => {
                     }, 1)
 
                     break;
+                case "ArrowDown":
                 case "KeyS":
                     currentBody!.isSleeping = false;
                     disableAction = true;
@@ -147,6 +150,8 @@ const GameComponent: React.FC = () => {
 
         window.onkeyup = (event) => {
             switch (event.code) {
+                case "ArrowLeft":
+                case "ArrowRight":
                 case "KeyA":
                 case "KeyD":
                     clearInterval(interval!);
