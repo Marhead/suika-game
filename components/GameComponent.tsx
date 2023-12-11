@@ -6,6 +6,7 @@ import {Bodies, Body, Events, World} from "matter-js";
 import "@/matter-extended.d";
 import {useDispatch, useSelector} from "react-redux";
 import {setScore} from "@/redux/scoreActions";
+import GameEndingModal from "@/components/GameEndingModal";
 
 interface Fruit {
     name: string;
@@ -24,6 +25,8 @@ const GameComponent: React.FC = () => {
 
     const boxRef = useRef<HTMLElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    const [showGameEndingModal, setShowGameEndingModal] = useState(false);
 
     useEffect(() => {
         const engine = Matter.Engine.create();
@@ -200,7 +203,7 @@ const GameComponent: React.FC = () => {
                 
                 // 게임 종료 판별
                 if (!disableAction && ( collision.bodyA.label === "topLine" || collision.bodyB.label === "topLine"))
-                    location.reload();
+                    setShowGameEndingModal(true);
             });
         })
 
@@ -211,9 +214,14 @@ const GameComponent: React.FC = () => {
         };
     }, []);
 
+    const handleCloseModal = () => {
+        setShowGameEndingModal(false);
+    }
+
     return (
         <div ref={boxRef as React.RefObject<HTMLDivElement>}>
             <canvas ref={canvasRef} className="bg-gray-700" width={620} height={850}/>
+            {showGameEndingModal && (<GameEndingModal onClose={handleCloseModal}/>)}
         </div>
     );
 };
