@@ -18,9 +18,9 @@ const StartModal: React.FC<StartModalProps> = ({ onClick }) => {
                 <div className="flex justify-center">
                     <button
                         onClick={handleButtonClick}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className="text-white px-4 py-2 rounded hover:bg-blue-600"
                     >
-                        Game Start
+                        <img src="/Start.png" alt={"Start button"}/>
                     </button>
                 </div>
             </div>
