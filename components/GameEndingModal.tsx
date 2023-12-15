@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {writeToDynamoDB} from "@/api/APIs";
 
 interface GameEndingModalProps {
     onClose: () => void;
@@ -12,6 +13,8 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ onClose }) => {
         // Perform any necessary actions with the entered data
         // For example, send the data to a server or handle it in some way
         alert(`Nickname: ${nickname}\nPhone Number: ${phoneNumber}`);
+
+        writeToDynamoDB({Nickname: nickname, PhoneNumber: phoneNumber, Score: "100"})
 
         // After handling the data, close the modal
         onClose();

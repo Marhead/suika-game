@@ -6,8 +6,10 @@ import GameComponent from "@/components/GameComponent";
 import LeftPanel from "@/components/left/LeftPanel";
 import RightPanel from "@/components/right/RightPanel";
 import StartModal from "@/components/StartModal";
+import * as dotenv from "dotenv";
 
 export default function Home() {
+    dotenv.config();
     // 모달 버튼 클릭 유무를 저장할 state
     const [showStartModal, setShowStartModal] = useState(true)
 
