@@ -1,4 +1,4 @@
-import * as AWS from "aws-sdk";
+import {dbClient} from "@/config"
 
 const dynamoDB = new AWS.DynamoDB({accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, region: process.env.AWS_REGION});
 const tableName = "dobunojo";
