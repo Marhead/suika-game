@@ -31,7 +31,7 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ onClose }) => {
         // After handling the data, close the modal
         onClose();
 
-        window.location.reload();
+        location.reload();
     };
 
     return (
