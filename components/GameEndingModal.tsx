@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {writeToDynamoDB} from "@/api/APIs";
+import {useSelector} from "react-redux";
 
 interface GameEndingModalProps {
     onClose: () => void;
@@ -9,12 +9,24 @@ const GameEndingModal: React.FC<GameEndingModalProps> = ({ onClose }) => {
     const [nickname, setNickname] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const handleSubmit = () => {
-        // Perform any necessary actions with the entered data
-        // For example, send the data to a server or handle it in some way
-        alert(`Nickname: ${nickname}\nPhone Number: ${phoneNumber}`);
+    const score = useSelector((state:any) => state.score);
 
-        writeToDynamoDB({Nickname: nickname, PhoneNumber: phoneNumber, Score: "100"})
+    const handleSubmit = async () => {
+        alert(`Nickname: ${nickname}\nPhone Number: ${phoneNumber}\nScore: ${score}`);
+
+        console.log("Before request: ", {nickname, phoneNumber, score});
+
+        await fetch('/api/end', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Nickname: nickname,
+                PhoneNumber: phoneNumber,
+                Score: score.toString(),
+            })
+        });
 
         // After handling the data, close the modal
         onClose();
